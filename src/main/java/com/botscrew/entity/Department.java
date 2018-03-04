@@ -2,6 +2,7 @@ package com.botscrew.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Department {
@@ -34,8 +35,8 @@ public class Department {
         this.name = name;
     }
 
-    public Lector getHead() {
-        return head;
+    public Optional<Lector> getHead() {
+        return Optional.ofNullable(head);
     }
 
     public void setHead(Lector head) {

@@ -1,25 +1,25 @@
 package com.botscrew;
 
 import com.botscrew.service.DepartmentService;
+import com.botscrew.service.LectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Scanner;
 
 @SpringBootApplication
-@ComponentScan("com.botscrew")
+//@ComponentScan("com.botscrew")
 public class UniversityTaskApplication implements CommandLineRunner {
 
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private LectorService lectorService;
 
     public static void main(String[] args) {
         SpringApplication.run(UniversityTaskApplication.class, args);
-
-
     }
 
     @Override
@@ -30,7 +30,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
         boolean work = true;
         while (work) {
             int choise = getMenuItemPick();
-            
+
             switch (choise) {
                 case 1: {
                     System.out.print("Enter department name: ");
@@ -56,6 +56,12 @@ public class UniversityTaskApplication implements CommandLineRunner {
                     System.out.println(departmentService.getEmployeesAmount(departmentName));
                     break;
                 }
+                case 5: {
+                    System.out.println("Enter search phrase:");
+                    String searchWord = stringScanner.next();
+                    System.out.println(lectorService.findByRegex(searchWord));
+                    break;
+                }
                 case 0: {
                     work = false;
                     break;
@@ -69,7 +75,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
     }
 
     public static int getMenuItemPick() {
-        System.out.println("\n\n*****Univesity*****");
+        System.out.println("\n*****Univesity*****");
         System.out.println("1. Department head.");
         System.out.println("2. Department statistic.");
         System.out.println("3. Department average salary.");
