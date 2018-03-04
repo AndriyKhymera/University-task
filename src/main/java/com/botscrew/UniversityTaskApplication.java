@@ -24,11 +24,13 @@ public class UniversityTaskApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
+        Scanner stringScanner = new Scanner(System.in);
+        String departmentName = "";
+
         boolean work = true;
         while (work) {
-            int choise = showMenu();
-            Scanner stringScanner = new Scanner(System.in);
-            String departmentName = "";
+            int choise = getMenuItemPick();
+            
             switch (choise) {
                 case 1: {
                     System.out.print("Enter department name: ");
@@ -66,7 +68,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
         }
     }
 
-    public static int showMenu() {
+    public static int getMenuItemPick() {
         System.out.println("\n\n*****Univesity*****");
         System.out.println("1. Department head.");
         System.out.println("2. Department statistic.");
@@ -75,6 +77,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
         System.out.println("5. Search for lecturer.");
         System.out.println("0. Exit.");
         System.out.print("Choose your option:");
+
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
