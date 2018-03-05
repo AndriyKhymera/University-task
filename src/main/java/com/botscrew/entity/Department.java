@@ -19,6 +19,18 @@ public class Department {
     @ManyToMany(mappedBy = "deparments")
     private List<Lector> lectors;
 
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    public Department(String name, Lector head, List<Lector> lectors) {
+        this.name = name;
+        this.head = head;
+        this.lectors = lectors;
+    }
+
+    //getters and setters
     public int getId() {
         return id;
     }

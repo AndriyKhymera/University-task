@@ -1,5 +1,6 @@
 package com.botscrew;
 
+import com.botscrew.enums.LecturerDegree;
 import com.botscrew.service.DepartmentService;
 import com.botscrew.service.LectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 @SpringBootApplication
-//@ComponentScan("com.botscrew")
 public class UniversityTaskApplication implements CommandLineRunner {
 
     @Autowired
@@ -25,6 +26,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         Scanner stringScanner = new Scanner(System.in);
+        Scanner numScanner = new Scanner(System.in);
         String departmentName = "";
 
         boolean work = true;
@@ -62,6 +64,24 @@ public class UniversityTaskApplication implements CommandLineRunner {
                     System.out.println(lectorService.findByRegex(searchWord));
                     break;
                 }
+                case 6: {
+                    System.out.println("Create new department");
+                    System.out.println("Enter a department name:");
+                    departmentName = stringScanner.next();
+                    departmentService.saveDepartment(departmentName);
+                    break;
+                }
+                case 7: {
+                    System.out.println("Enter lecturer name");
+                    String name = stringScanner.next();
+                    System.out.println("Enter lecturer surname");
+                    String surname = stringScanner.next();
+                    System.out.println("Enter lecturer salary");
+                    int salary = numScanner.nextInt();
+                    System.out.println("Choose one of three deegress:");
+                    Arrays.stream(LecturerDegree.values()).forEach(System.out::print);
+                    LecturerDegree degree = LecturerDegree.valueOf(stringScanner.next());
+                }
                 case 0: {
                     work = false;
                     break;
@@ -81,6 +101,7 @@ public class UniversityTaskApplication implements CommandLineRunner {
         System.out.println("3. Department average salary.");
         System.out.println("4. Department employee count.");
         System.out.println("5. Search for lecturer.");
+        System.out.println("6. Add new department.");
         System.out.println("0. Exit.");
         System.out.print("Choose your option:");
 

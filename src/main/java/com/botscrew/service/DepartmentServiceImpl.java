@@ -38,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public String getDepartmentStatistic(String departmentName) {
         Optional<Department> department = departmentRepository.findByName(departmentName);
         if (!department.isPresent()) {
-            return "Can't find that department!Check your spelling.";
+            return "Can't find that department! Check your spelling.";
         }
 
         List<Lector> lectors = department.get().getLectors();
@@ -74,11 +74,22 @@ public class DepartmentServiceImpl implements DepartmentService {
     public String getEmployeesAmount(String departmentName) {
         Optional<Department> department = departmentRepository.findByName(departmentName);
         if (!department.isPresent()) {
-            return "Can't find that department!Check your spelling.";
+            return "Can't find that department! Check your spelling.";
         }
         List<Lector> lectors = department.get().getLectors();
 
         return String.format("\nAmount of employees: %d", lectors.size());
     }
 
+    @Override
+    public boolean saveDepartment(String name) {
+        departmentRepository.save(new Department(name));
+        return true;
+    }
+
+    @Override
+    public boolean saveDepartment(String name, Lector lector, List<Lector> lectors) {
+        departmentRepository.save(new Department(name, lector, lectors));
+        return true;
+    }
 }
